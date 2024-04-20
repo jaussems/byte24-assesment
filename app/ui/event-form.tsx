@@ -2,7 +2,7 @@ import { Button } from "./button";
 
 export function EventForm() {
   return (
-    <form>
+    <form className="flex flex-col gap-4">
       <label
         className="mb-3 mt-5 block text-xs font-medium text-gray-900"
         htmlFor="name"
@@ -67,7 +67,7 @@ export function EventForm() {
           required
         />
       </div>
-    <Button className="" type="submit">Create Event</Button>
+    <Button className="w-64" type="submit">Create Event</Button>
     </form>
   );
 }
