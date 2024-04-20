@@ -1,3 +1,4 @@
+import Link from "next/link";
 import dummyEvents from "../lib/dummy-data";
 import { EventCard } from "../ui/event-card";
 
@@ -10,6 +11,7 @@ export default function Home() {
      <EventCard key={index} eventInfo={eventInfo} />
     )
     })}
+    <Link href={"/dashboard/event/create"}>Create</Link>
       </main>
     );
   }

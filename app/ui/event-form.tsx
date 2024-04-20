@@ -67,7 +67,7 @@ export function EventForm() {
           required
         />
       </div>
-    <Button type="submit">Create Event</Button>
+    <Button className="" type="submit">Create Event</Button>
     </form>
   );
 }
