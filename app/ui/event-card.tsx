@@ -1,16 +1,21 @@
+'use client';
+
+import Link from "next/link";
+
 interface EventCardInterface {
-    eventData: {
+    eventInfo: {
+        id: string;
         eventName: string;
         description: string;
         location: string;
         date: string;
         time: string;
-    }
+    }    
 }
 
 
 export function EventCard(eventData: EventCardInterface ) {
-    const {eventName, description, date, time, location} = eventData.eventData
+    const {id, eventName, description, date, time, location} = eventData.eventInfo;
     return (
         <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 max-w-sm">
         <div className="px-6 py-4">
@@ -19,7 +24,7 @@ export function EventCard(eventData: EventCardInterface ) {
           <h2 className="text-gray-600 text-sm mb-2">{date} - {time}</h2>
           <p className="text-gray-700 text-base">{description}</p>
         </div>
+        <Link href={`/dashboard/event/${id}`} > click here</Link>
       </div>
     )
-     
 }
