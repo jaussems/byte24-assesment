@@ -24,7 +24,7 @@ export function EventCard(eventData: EventCardInterface ) {
           <h2 className="text-gray-600 text-sm mb-2">{date} - {time}</h2>
           <p className="text-gray-700 text-base">{description}</p>
         </div>
-        <Link href={`/dashboard/event/${id}`} > click here</Link>
+        <Link className="p-6" href={`/dashboard/event/${id}`} > click here</Link>
       </div>
     )
 }
