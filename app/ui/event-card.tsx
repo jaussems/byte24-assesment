@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 interface EventCardInterface {
-    eventInfo: {
+    eventInfo?: {
         id: string;
         eventName: string;
         description: string;
@@ -15,7 +15,7 @@ interface EventCardInterface {
 
 
 export function EventCard(eventData: EventCardInterface ) {
-    const {id, eventName, description, date, time, location} = eventData.eventInfo;
+    const {id, eventName, description, date, time, location} = eventData?.eventInfo || {};
     return (
         <div className="bg-white shadow-lg rounded-lg overflow-hidden m-4 max-w-sm">
         <div className="px-6 py-4">
