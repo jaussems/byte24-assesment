@@ -7,8 +7,7 @@ export default function Page() {
     const params = useParams<{id: string}>()
     const event = dummyEvents.find((event) => event.id === params.id);
     return  (
-    <div>
-        <h1>Event page  {params.id} </h1>
+    <div>'Event page ' {params.id}
     <EventCard eventInfo={event} />
     </div>
     )
