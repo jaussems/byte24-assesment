@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Search } from "../ui/search";
 import { Dropdown } from "../ui/dropdown";
-import { fetchEvents } from "@/app/lib/data";
 import Events from "@/app/ui/events";
 import {Suspense} from "react";
 
@@ -13,7 +12,6 @@ export default  async function Page({searchParams} : {
 }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
-    const data = await fetchEvents();
     const dropDownOptions = [
       {value: "sortbyLocationASC", label: "Sort by Location ascending"},
       {value: "sortbyLocationDESC", label: "Sort by Location descending"},
@@ -32,9 +30,3 @@ export default  async function Page({searchParams} : {
       </main>
     );
   }
-
-  function sort(value: string) {
-    return value;
-  }
-
-
