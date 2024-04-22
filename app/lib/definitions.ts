@@ -7,3 +7,4 @@ export interface Event {
     time:   string;
     published:   boolean;
 }
+
