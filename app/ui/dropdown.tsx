@@ -1,3 +1,5 @@
+'use client';
+
 interface DropDownOption {
     value: string;
     label: string;
@@ -5,7 +7,7 @@ interface DropDownOption {
 
 interface Dropdown {
     label: string;
-    options: DropDownOption[]
+    options: DropDownOption[],
 }
 
 export function Dropdown(value: Dropdown) {

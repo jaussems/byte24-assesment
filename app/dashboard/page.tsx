@@ -3,7 +3,7 @@ import dummyEvents from "../lib/dummy-data";
 import { EventCard } from "../ui/event-card";
 import { Search } from "../ui/search";
 import { Dropdown } from "../ui/dropdown";
-import {fetchEvents} from "@/app/lib/data";
+import { fetchEvents } from "@/app/lib/data";
 
 export default  async function Home() {
     //const data = dummyEvents;
@@ -14,10 +14,11 @@ export default  async function Home() {
       {value: "sortbyNameASC", label: "Sort by Name ascending"},
       {value: "sortbyNameDESC", label: "Sort by Name descending"},
     ]
+
     return (
       <main className="flex min-h-screen flex-col p-6">
         <Search />
-        <Dropdown label="Filter events" options={dropDownOptions} />
+        <Dropdown label="Filter events" options={dropDownOptions}  />
      {data.map((eventInfo, index) => {
     return (
      <EventCard key={index} eventInfo={eventInfo} />
@@ -28,5 +29,8 @@ export default  async function Home() {
     );
   }
 
+  function sort(value: string) {
+    return value;
+  }
 
 
