@@ -97,7 +97,7 @@ export async function updateEvent(id: string, formData: FormData) {
 
     try {
         await sql`
-    UPDATE invoices
+    UPDATE events
     SET 
       name = ${name},
       description = ${description},
@@ -113,6 +113,6 @@ export async function updateEvent(id: string, formData: FormData) {
             message: "Database Error: Failed to Update Event."
         };
     }
-    revalidatePath('/dashboard/invoices');
-    redirect('/dashboard/invoices');
+    revalidatePath('/dashboard');
+    redirect('/dashboard');
 }

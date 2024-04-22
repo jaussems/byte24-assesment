@@ -25,7 +25,7 @@ export function EventEditForm({event} : {event: EventForm}) {
                     type="text"
                     name="name"
                     placeholder="Enter the event name"
-                    defaultValue=""
+                    defaultValue={event.name}
                     aria-describedby="name-error"
                 />
                 <div id="name-error" aria-live="polite" aria-atomic="true">
@@ -50,6 +50,7 @@ export function EventEditForm({event} : {event: EventForm}) {
                     type="text"
                     name="description"
                     placeholder="Enter the description of the event"
+                    defaultValue={event.description}
                     aria-describedby="description-error"
                 />
                 <div id="description-error" aria-live="polite" aria-atomic="true">
@@ -74,6 +75,7 @@ export function EventEditForm({event} : {event: EventForm}) {
                     type="text"
                     name="location"
                     placeholder="Enter the location of the event"
+                    defaultValue={event.location}
                     aria-describedby="location-error"
                 />
                 <div id="location-error" aria-live="polite" aria-atomic="true">
@@ -98,6 +100,7 @@ export function EventEditForm({event} : {event: EventForm}) {
                     type="text"
                     name="date"
                     placeholder="Enter the date of the event"
+                    defaultValue={event.date}
                     aria-describedby="date-error"
                 />
                 <div id="date-error" aria-live="polite" aria-atomic="true">
@@ -122,6 +125,7 @@ export function EventEditForm({event} : {event: EventForm}) {
                     type="text"
                     name="time"
                     placeholder="Enter the time of the event"
+                    defaultValue={event.time}
                     aria-describedby="time-error"
                 />
                 <div id="date-error" aria-live="polite" aria-atomic="true">

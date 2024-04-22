@@ -25,7 +25,7 @@ export function EventCard(eventData: EventCardInterface ) {
           <p className="text-gray-700 text-base">{description}</p>
         </div>
         <Link className="p-6" href={`/dashboard/event/${id}`} > click here</Link>
-            <Link className="p-6" href={`/dashboard/invoices/${id}/edit`}>Edit</Link>
+            <Link className="p-6" href={`/dashboard/event/${id}/edit`}>Edit</Link>
       </div>
     )
 }
