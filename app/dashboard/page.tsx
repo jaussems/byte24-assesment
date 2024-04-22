@@ -1,6 +1,4 @@
 import Link from "next/link";
-import dummyEvents from "../lib/dummy-data";
-import { EventCard } from "../ui/event-card";
 import { Search } from "../ui/search";
 import { Dropdown } from "../ui/dropdown";
 import { fetchEvents } from "@/app/lib/data";
@@ -25,10 +23,12 @@ export default  async function Page({searchParams} : {
 
     return (
       <main className="flex min-h-screen flex-col p-6">
+          <Link href={"/dashboard/event/create"}>Create</Link>
         <Search placeholder={"Search for events "} />
         <Dropdown label="Filter events" options={dropDownOptions}  />
-        <Events query={query} currentPage={currentPage} />
-    <Link href={"/dashboard/event/create"}>Create</Link>
+          <Suspense fallback={<div> Loading... </div>}>
+            <Events query={query} currentPage={currentPage} />
+            </Suspense>
       </main>
     );
   }

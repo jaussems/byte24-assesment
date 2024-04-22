@@ -7,22 +7,43 @@ import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 
-
+export type State = {
+    errors?: {
+        name?: string[];
+        description?: string[];
+        location?: string[];
+        date?: string[];
+        time?: string[];
+    };
+    message?: string;
+};
 
 const eventFormSchema = z.object({
     id:          z.string(),
-    updated_at:   z.date(),
-    name:        z.string(),
-    description: z.string(),
-    location:    z.string(),
-    date:        z.string(),
-    time:        z.string(),
+    updated_at:  z.date(),
+    name:        z.string({
+            invalid_type_error: 'Please enter a name for the event.'
+    }),
+    description: z.string({
+            invalid_type_error: 'Please enter a description.'
+    }),
+    location:    z.string({
+            invalid_type_error: 'Please enter a locaton.'
+    }),
+    date:        z.string({
+            invalid_type_error: 'Please enter a location for the event.'
+    }
+    ),
+    time:        z.string({
+            invalid_type_error: 'Please enter a time for the event.'
+    }
+    ),
     published:   z.boolean()
 })
 
 const CreateEvent = eventFormSchema.omit({});
-export async function createEvent(formData: FormData) {
-    const { id, updated_at, name, description, location, date, time, published} = CreateEvent.parse({
+export async function createEvent(prevtState: State ,formData: FormData) {
+    const validatedFields = CreateEvent.safeParse({
         id: uuidv4(),
         updated_at: new Date(Date.now()),
         name: formData.get('name'),
@@ -33,11 +54,28 @@ export async function createEvent(formData: FormData) {
         published: true
     })
 
+    console.log(`Validate Fields: ${validatedFields}`)
+
+    if (!validatedFields.success) {
+        return {
+            errors: validatedFields.error.flatten().fieldErrors,
+            message: 'Missing some files, failed to create an Event.',
+        };
+    }
+
+    const { id, updated_at, name, description, location, date, time, published} = validatedFields.data
     // @ts-ignore
-    await sql`
-    INSERT INTO events (id, updated_at, name, description, location, date, time, published)
-    VALUES (${id}, ${updated_at}, ${name}, ${description}, ${location}, ${date}, ${time}, ${published})
-  `;
+
+    try {
+        await sql`
+        INSERT INTO events (id, updated_at, name, description, location, date, time, published)
+        VALUES (${id}, ${updated_at}, ${name}, ${description}, ${location}, ${date}, ${time}, ${published})
+        `;
+    } catch(error) {
+        return {
+            message: 'Database Error: Failed to Create an Event.',
+        };
+    }
 
     revalidatePath('/dashboard');
     redirect('/dashboard');

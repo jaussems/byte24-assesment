@@ -1,10 +1,10 @@
-import { EventForm } from "@/app/ui/event-form";
+import { EventCreateForm } from "@/app/ui/event-create-form";
 
 export default function Page() {
     return (
         <div>
             <h1>Event Creation: </h1>
-            <EventForm  />
+            <EventCreateForm  />
         </div>
     )
 }

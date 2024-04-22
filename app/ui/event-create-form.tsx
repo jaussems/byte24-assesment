@@ -1,9 +1,15 @@
-import { Button } from "./button";
-import {createEvent} from "@/app/lib/actions";
+'use client';
 
-export function EventForm() {
-  return (
-      <form action={createEvent} className="flex flex-col gap-4">
+import { Button } from "./button";
+import { createEvent } from "@/app/lib/actions";
+import { useFormState } from 'react-dom';
+
+export function EventCreateForm() {
+    const initialState = { message: '', errors: {} };
+    const [state, dispatch] = useFormState(createEvent, initialState, )
+    console.log(`state: ${JSON.stringify(state.errors)}`)
+    return (
+      <form action={dispatch} className="flex flex-col gap-4">
           <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
               htmlFor="name"
@@ -17,8 +23,17 @@ export function EventForm() {
                   type="text"
                   name="name"
                   placeholder="Enter the event name"
-                  required
+                  defaultValue=""
+                  aria-describedby="name-error"
               />
+              <div id="name-error" aria-live="polite" aria-atomic="true">
+                  {state.errors?.name &&
+                      state.errors.name.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                              {error}
+                          </p>
+                      ))}
+              </div>
           </div>
           <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -33,8 +48,16 @@ export function EventForm() {
                   type="text"
                   name="description"
                   placeholder="Enter the description of the event"
-                  required
+                  aria-describedby="description-error"
               />
+              <div id="description-error" aria-live="polite" aria-atomic="true">
+                  {state.errors?.description &&
+                      state.errors.description.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                              {error}
+                          </p>
+                      ))}
+              </div>
           </div>
           <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -49,8 +72,16 @@ export function EventForm() {
                   type="text"
                   name="location"
                   placeholder="Enter the location of the event"
-                  required
+                  aria-describedby="location-error"
               />
+              <div id="location-error" aria-live="polite" aria-atomic="true">
+                  {state.errors?.location &&
+                      state.errors.location.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                              {error}
+                          </p>
+                      ))}
+              </div>
           </div>
           <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -65,8 +96,16 @@ export function EventForm() {
                   type="text"
                   name="date"
                   placeholder="Enter the date of the event"
-                  required
+                  aria-describedby="date-error"
               />
+              <div id="date-error" aria-live="polite" aria-atomic="true">
+                  {state.errors?.date &&
+                      state.errors.date.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                              {error}
+                          </p>
+                      ))}
+              </div>
           </div>
           <label
               className="mb-3 mt-5 block text-xs font-medium text-gray-900"
@@ -81,10 +120,18 @@ export function EventForm() {
                   type="text"
                   name="time"
                   placeholder="Enter the time of the event"
-                  required
+                  aria-describedby="time-error"
               />
+              <div id="date-error" aria-live="polite" aria-atomic="true">
+                  {state.errors?.time &&
+                      state.errors.time.map((error: string) => (
+                          <p className="mt-2 text-sm text-red-500" key={error}>
+                              {error}
+                          </p>
+                      ))}
+              </div>
           </div>
           <Button className="w-64" type="submit">Create Event</Button>
       </form>
-  );
+    );
 }
