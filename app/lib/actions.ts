@@ -116,3 +116,15 @@ export async function updateEvent(id: string, formData: FormData) {
     revalidatePath('/dashboard');
     redirect('/dashboard');
 }
+
+export async function deleteEvent(id: string) {
+    try {
+        await sql`DELETE FROM events WHERE id = ${id}`
+    }
+    catch (error) {
+        return {
+            message: "Database Error: Failed to Update Event."
+        };
+    }
+    revalidatePath('/dashboard');
+}

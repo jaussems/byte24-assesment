@@ -1,6 +1,7 @@
 'use client';
 
 import Link from "next/link";
+import {DeleteButton} from "@/app/ui/delete-button";
 
 interface EventCardInterface {
     eventInfo?: {
@@ -26,6 +27,7 @@ export function EventCard(eventData: EventCardInterface ) {
         </div>
         <Link className="p-6" href={`/dashboard/event/${id}`} > click here</Link>
             <Link className="p-6" href={`/dashboard/event/${id}/edit`}>Edit</Link>
+            <DeleteButton id={id}></DeleteButton>
       </div>
     )
 }
