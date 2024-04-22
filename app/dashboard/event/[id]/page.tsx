@@ -1,14 +1,11 @@
-'use client';
-
-import dummyEvents from '@/app/lib/dummy-data';
 import { EventCard } from '@/app/ui/event-card';
-import { useParams } from 'next/navigation'
-export default function Page() {
-    const params = useParams<{id: string}>()
-    const event = dummyEvents.find((event) => event.id === params.id);
+import {fetchEventById} from "@/app/lib/data";
+export default async function Page({params}: {params: {id: string}}) {
+    const event = await fetchEventById(params.id);
+
     return  (
     <div>
-    <EventCard eventInfo={event} />
+    <EventCard eventInfo={event[0]} />
     </div>
     )
 }
