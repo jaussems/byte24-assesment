@@ -1,6 +1,8 @@
 'use server';
 
 import { z } from 'zod';
+import { sql } from '@vercel/postgres';
+
 
 const eventFormSchema = z.object({
     id:          z.string(),
@@ -12,15 +14,20 @@ const eventFormSchema = z.object({
     published:   z.boolean()
 })
 
-const CreateEvent = eventFormSchema.omit({id: true, date: true});
+const CreateEvent = eventFormSchema.omit({id: true});
 export async function createEvent(formData: FormData) {
-    const rawFormData = {
+    const { name, description, location, date, time, published} = CreateEvent.parse({
         name: formData.get('name'),
         description: formData.get('description'),
         location: formData.get('location'),
         date: formData.get('date'),
-        time: formData.get('time')
-    };
+        time: formData.get('time'),
+        published: true
+    })
+
+    await sql`
+    INSERT INTO events (name, description, location, date, time, published)
+    VALUES (${name}, ${description}, ${location}, ${date}, ${time}, ${published})
+  `;
     // Test it out:
-    console.log(rawFormData);
 }
