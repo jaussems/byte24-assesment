@@ -1,9 +1,9 @@
 export interface Event {
     id:          string;
-    eventName:   string;
+    name:   string;
     description: string;
     location:    string;
-    eventDate:   string;
-    eventTime:   string;
+    date:   string;
+    time:   string;
     published:   boolean;
 }

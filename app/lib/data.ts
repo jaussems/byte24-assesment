@@ -4,31 +4,25 @@ import {Event} from "@/app/lib/definitions";
 
 
 
-export async function fetchEvents(sort?: string) {
+export async function fetchEvents(query?: string) {
     noStore();
     try {
         console.log('Fetching event data...');
         await new Promise((resolve) => setTimeout(resolve, 3000));
-        let data = await sql<Event>`SELECT * FROM events`;
-        if(sort)
-        {
-            switch(sort)
-            {
-                case sortEnums.SORTBYLOCATIONASC :
-                    data =  await sql<Event>`SELECT * FROM events ORDER BY events.location ASC`;
-                    break;
-                case sortEnums.SORTBYLOCATIONDESC :
-                    data =  await sql<Event>`SELECT * FROM events ORDER BY events.location DESC`;
-                    break;
-                case sortEnums.SORTBYNAMEASC :
-                    data =  await sql<Event>`SELECT * FROM events ORDER BY events.name ASC`;
-                    break;
-                case sortEnums.SORTBYNAMEDESC :
-                    data =  await sql<Event>`SELECT * FROM events ORDER BY events.name DESC`;
-                    break;
-            }
-        }
-
+        let data = await sql<Event>`
+        SELECT
+            events.id,
+            events.name,
+            events.description,
+            events.location,
+            events.date,
+            events.time,
+            events.published
+        FROM events
+        WHERE
+        events.name LIKE ${`%${query}%`} OR
+        events.location LIKE ${`%${query}%`}
+        `;
         return data.rows;
     } catch (error) {
         console.error('Database Error:', error);
