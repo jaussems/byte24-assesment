@@ -1,4 +1,4 @@
-export interface Event {
+export interface EventForm {
     id:          string;
     name:   string;
     description: string;
@@ -7,3 +7,4 @@ export interface Event {
     time:   string;
     published:   boolean;
 }
+

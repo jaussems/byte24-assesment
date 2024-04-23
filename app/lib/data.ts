@@ -1,15 +1,31 @@
-import {QueryResult, sql} from '@vercel/postgres';
+import {sql} from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
-import {Event} from "@/app/lib/definitions";
+import {sortEnums} from "@/app/lib/enums";
 
 
-
-export async function fetchEvents(query?: string) {
+export async function fetchEvents(query?: string, filter?: string) {
     noStore();
+
+    const orderBy = (() => {
+        switch (filter) {
+            case sortEnums.SORTBYLOCATIONASC:
+                return `events.location ASC`;
+            case sortEnums.SORTBYLOCATIONDESC:
+                return `events.location DESC`;
+            case sortEnums.SORTBYNAMEASC:
+                return `ORDER BY events.name ASC`;
+            case sortEnums.SORTBYNAMEDESC:
+                return `events.name DESC`;
+            default:
+                return `events.name DESC`;
+        }
+    })();
+
     try {
         console.log('Fetching event data...');
         await new Promise((resolve) => setTimeout(resolve, 3000));
         let data = await sql<Event>`
+      
         SELECT
             events.id,
             events.name,
@@ -21,7 +37,8 @@ export async function fetchEvents(query?: string) {
         FROM events
         WHERE
         events.name LIKE ${`%${query}%`} OR
-        events.location LIKE ${`%${query}%`}
+        events.location LIKE ${`%${query}%`}  
+        ORDER BY ${orderBy}
         `;
         return data.rows;
     } catch (error) {
@@ -64,3 +81,11 @@ export async  function fetchUserById(userId: string) {
         throw new Error('Failed to fetch event data.');
     }
 }
+
+export const dropDownOptions = [
+    {value : '', label: "---"},
+    {value: "sortbyLocationASC", label: "Sort by Location ascending"},
+    {value: "sortbyLocationDESC", label: "Sort by Location descending"},
+    {value: "sortbyNameASC", label: "Sort by Name ascending"},
+    {value: "sortbyNameDESC", label: "Sort by Name descending"},
+]

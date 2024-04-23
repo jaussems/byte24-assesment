@@ -1,12 +1,9 @@
-import Image from "next/image";
-import { EventCard } from "./ui/event-card";
-import dummyEvents from "./lib/dummy-data.js";
+import {redirect} from "next/navigation";
 
 export default function Home() {
-  const data = dummyEvents;
-  
+  redirect('/dashboard');
   return (
-    <main className="flex min-h-screen flex-col p-6">
+    <main className="">
    
     </main>
   );

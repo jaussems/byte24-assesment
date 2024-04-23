@@ -24,7 +24,7 @@ export function Search(search: Search) {
 
     return (
       <div className="flex gap-4 p-4">
-        <input className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
+        <input className="peer block w-74 rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
                placeholder={placeholder}
                onChange={(e) => handleSearch(e.target.value) }
                defaultValue={searchParams.get('query')?.toString()}
