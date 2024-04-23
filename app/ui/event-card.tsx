@@ -25,9 +25,11 @@ export function EventCard(eventData: EventCardInterface ) {
           <h2 className="text-gray-600 text-sm mb-2">{date} - {time}</h2>
           <p className="text-gray-700 text-base">{description}</p>
         </div>
-        <Link className="p-6" href={`/dashboard/event/${id}`} > click here</Link>
+        <div className="flex flex-row gap-4 items-center">
+            <Link className="p-6" href={`/dashboard/event/${id}`} >Read more</Link>
             <Link className="p-6" href={`/dashboard/event/${id}/edit`}>Edit</Link>
             <DeleteButton id={id}></DeleteButton>
+        </div>
       </div>
     )
 }

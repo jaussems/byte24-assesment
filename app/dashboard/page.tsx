@@ -17,10 +17,12 @@ export default  async function Page({searchParams} : {
     const currentPage = Number(searchParams?.page) || 1;
 
     return (
-      <main className="flex min-h-screen flex-col p-6">
-          <Link href={"/dashboard/event/create"}>Create</Link>
-        <Search placeholder={"Search for events "} />
-        <Dropdown label="Filter events" options={dropDownOptions}  />
+      <main className="flex  flex-col p-6">
+        <div className="flex items-center align-middle flex-col md:flex-row ">
+          <Link className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded my-2 w-36" href={"/dashboard/event/create"}>Create Event</Link>
+          <Search placeholder={"Search for events "} />
+        <Dropdown options={dropDownOptions}  />
+        </div>
           <Suspense fallback={<div> Loading... </div>}>
             <Events query={query} filter={filter} currentPage={currentPage} />
             </Suspense>
