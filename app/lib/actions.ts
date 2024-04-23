@@ -40,9 +40,8 @@ const eventFormSchema = z.object({
     published:   z.boolean()
 })
 
-
 const CreateEvent = eventFormSchema.omit({});
-export async function createEvent(prevState: State ,formData: FormData) {
+export async function createEvent(prevState: State , formData: FormData) {
     const validatedFields = CreateEvent.safeParse({
         id: uuidv4(),
         updated_at: new Date(Date.now()),
@@ -54,8 +53,6 @@ export async function createEvent(prevState: State ,formData: FormData) {
         published: true
     })
 
-    console.log(`Validate Fields: ${validatedFields}`)
-
     if (!validatedFields.success) {
         return {
             errors: validatedFields.error.flatten().fieldErrors,
@@ -64,7 +61,6 @@ export async function createEvent(prevState: State ,formData: FormData) {
     }
 
     const { id, updated_at, name, description, location, date, time, published} = validatedFields.data
-    // @ts-ignore
 
     try {
         await sql`
@@ -76,7 +72,6 @@ export async function createEvent(prevState: State ,formData: FormData) {
             message: 'Database Error: Failed to Create an Event.',
         };
     }
-
     revalidatePath('/dashboard');
     redirect('/dashboard');
 }
